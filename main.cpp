@@ -9,9 +9,9 @@ inline bool instanceof(const T *ptr) {
 
 class Spojnik {
 public:
-    char *nazwa;
+    string nazwa;
     int sila;
-    Spojnik(char *nazwa, int sila) {
+    Spojnik(string nazwa, int sila) {
         this->nazwa = nazwa;
         this->sila = sila;
     }
@@ -47,13 +47,13 @@ public:
 
 class Zmienna: public Formula {
 public:
-    char *nazwa;
+    string nazwa;
     bool wartosc;
-    Zmienna(char *nazwa, bool wartosc) : Formula(ZMIENNA) {
+    Zmienna(string nazwa, bool wartosc) : Formula(ZMIENNA) {
         this->nazwa = nazwa;
         this->wartosc = wartosc;
     }
-    Zmienna(char *nazwa) : Formula(ZMIENNA) {
+    Zmienna(string nazwa) : Formula(ZMIENNA) {
         this->nazwa = nazwa;
         this->wartosc = true;
     }
@@ -100,8 +100,8 @@ public:
         this->arg2 = arg2;
     }
     void wypisz() {
-        bool nawiasy1 = spojnik->sila > arg1->spojnik->sila;
-        bool nawiasy2 = spojnik->sila > arg2->spojnik->sila;
+        bool nawiasy1 = spojnik->sila >= arg1->spojnik->sila;
+        bool nawiasy2 = spojnik->sila >= arg2->spojnik->sila;
         if (nawiasy1) cout << "(";
         arg1->wypisz();
         if (nawiasy1) cout << ")";
@@ -256,7 +256,21 @@ int main() {
     r1->NF()->wypisz();
     cout << endl;
 
+    cout << "ROWNOWAZNOSC" << endl;
+
     Rownowaznosc *rr = new Rownowaznosc(r1,r1);
+
+    rr->wypisz();
+    cout << endl;
+
+    rr->usunRownowaznosc()->wypisz();
+    cout << endl;
+
+    rr->usunRownowaznosc()->usunImplikacje()->wypisz();
+    cout << endl;
+
+    rr->usunRownowaznosc()->usunImplikacje()->usunAlternatywe()->wypisz();
+    cout << endl;
 
     rr->NF()->wypisz();
     cout << endl;
